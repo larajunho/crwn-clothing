@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react"
-
-import { Route, Switch, Redirect } from "react-router-dom"
+import React, { useEffect } from "react"
 import { connect } from "react-redux"
-import "./App.scss"
+import { Redirect, Route, Switch } from "react-router-dom"
 import { createStructuredSelector } from "reselect"
-
+import "./App.scss"
+import Header from "./components/header/header.component"
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
+import CheckoutPage from "./pages/checkout/checkout.component"
 import HomePage from "./pages/homepage/homepage.component"
 import ShopPage from "./pages/shop/shop.component"
-import CheckoutPage from "./pages/checkout/checkout.component"
-import Header from "./components/header/header.component"
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
 import { setCurrentUser } from "./redux/user/user.actions"
 import { selectCurrentUser } from "./redux/user/user.selectors"
 
