@@ -21,6 +21,7 @@ const SignIn = () => {
 			console.log(error)
 		}
 	}
+
 	const handleChange = event => {
 		const { value, name } = event.target
 		setState({ ...state, [name]: value })

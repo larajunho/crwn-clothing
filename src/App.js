@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 
 import { Route, Switch, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
-import "./App.css"
+import "./App.scss"
 import { createStructuredSelector } from "reselect"
 
 import HomePage from "./pages/homepage/homepage.component"
@@ -15,10 +15,8 @@ import { setCurrentUser } from "./redux/user/user.actions"
 import { selectCurrentUser } from "./redux/user/user.selectors"
 
 const App = ({ currentUser, setCurrentUser }) => {
-	const [unsubscribeFromAuth, setUnsubscribeFromAuth] = useState(null)
-
 	useEffect(() => {
-		const res = auth.onAuthStateChanged(async userAuth => {
+		const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth)
 				userRef.onSnapshot(snapShot => {
@@ -31,26 +29,26 @@ const App = ({ currentUser, setCurrentUser }) => {
 			setCurrentUser(userAuth)
 		})
 
-		setUnsubscribeFromAuth(res)
-
 		return () => {
 			unsubscribeFromAuth()
 		}
 	}, [])
 
 	return (
-		<div>
+		<div className="container">
 			<Header />
-			<Switch>
-				<Route exact path="/" component={HomePage} />
-				<Route path="/shop" component={ShopPage} />
-				<Route path="/checkout" component={CheckoutPage} />
-				<Route
-					exact
-					path="/signin"
-					render={() => (currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />)}
-				/>
-			</Switch>
+			<div className="page">
+				<Switch>
+					<Route exact path="/" component={HomePage} />
+					<Route path="/shop" component={ShopPage} />
+					<Route path="/checkout" component={CheckoutPage} />
+					<Route
+						exact
+						path="/signin"
+						render={() => (currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />)}
+					/>
+				</Switch>
+			</div>
 		</div>
 	)
 }

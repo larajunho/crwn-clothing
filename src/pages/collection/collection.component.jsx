@@ -9,9 +9,9 @@ const CollectionPage = ({ collection }) => {
 	return (
 		<div className="collection-page">
 			<h2 className="title">{title} </h2>
-			<div className="items">
+			<div className="items row">
 				{items.map(item => (
-					<CollectionItem key={item.id} item={item} />
+					<CollectionItem className="col-12 col-md-6 col-lg-4 col-xl-3" key={item.id} item={item} />
 				))}
 			</div>
 		</div>
