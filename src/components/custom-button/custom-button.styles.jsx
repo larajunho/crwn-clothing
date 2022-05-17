@@ -1,4 +1,6 @@
-.custom-button {
+import styled from "styled-components"
+
+export const CustomButtonWrapper = styled.button`
 	min-width: 165px;
 	width: auto;
 	height: 50px;
@@ -30,6 +32,7 @@
 			border: none;
 		}
 	}
+
 	&.inverted {
 		background-color: white;
 		color: black;
@@ -41,4 +44,4 @@
 			border: none;
 		}
 	}
-}
+`
