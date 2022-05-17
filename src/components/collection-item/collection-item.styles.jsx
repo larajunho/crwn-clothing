@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { CustomButtonWrapper } from "../custom-button/custom-button.styles"
+import { CustomButtonContainer } from "../custom-button/custom-button.styles"
 
 export const Image = styled.div`
 	width: 100%;
@@ -39,13 +39,13 @@ export const CollectionItemContainer = styled.div`
 		${Image} {
 			opacity: 0.8;
 		}
-		${CustomButtonWrapper} {
+		${CustomButtonContainer} {
 			opacity: 0.85;
 			display: flex;
 		}
 	}
 
-	${CustomButtonWrapper} {
+	${CustomButtonContainer} {
 		width: 80%;
 		opacity: 0.7;
 		position: absolute;

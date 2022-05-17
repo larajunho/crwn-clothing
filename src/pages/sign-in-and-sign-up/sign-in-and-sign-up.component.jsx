@@ -1,18 +1,17 @@
 import React from "react"
-
 import SignIn from "../../components/sign-in/sign-in.component"
-import "./sign-in-and-sign-up.styles.scss"
 import SignUp from "../../components/sign-up/sign-up.component"
+import { Container, SignInAndSignUpContainer } from "./sign-in-and-sign-up.styles.jsx"
 
 const SignInAndSignUpPage = () => (
-	<div className="sign-in-and-sign-up row">
-		<div className="sign-in col-12 col-lg-6">
+	<SignInAndSignUpContainer className="row">
+		<Container className="col-12 col-lg-6">
 			<SignIn />
-		</div>
-		<div className="sign-up col-12 col-lg-6">
+		</Container>
+		<Container className="col-12 col-lg-6">
 			<SignUp />
-		</div>
-	</div>
+		</Container>
+	</SignInAndSignUpContainer>
 )
 
 export default SignInAndSignUpPage
