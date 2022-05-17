@@ -1,37 +1,42 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { connect } from "react-redux"
-import { createStructuredSelector } from "reselect"
+import { useSelector } from "react-redux"
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
 import { ReactComponent as Logo } from "../../assets/crown.svg"
-import { HeaderContainer, LogoContainer, Options, Option } from "./header.styles.jsx"
 import { auth } from "../../firebase/firebase.utils"
-import CartIcon from "../cart-icon/cart-icon.component"
-import CartDropdown from "../cart-dropdown/cart-dropdown.component"
 import { selectCartHidden } from "../../redux/cart/cart.selectors"
 import { selectCurrentUser } from "../../redux/user/user.selectors"
+import CartDropdown from "../cart-dropdown/cart-dropdown.component"
+import CartIcon from "../cart-icon/cart-icon.component"
+import { HeaderContainer, LogoContainer, Option, Options } from "./header.styles.jsx"
 
-const Header = ({ currentUser, hidden }) => (
-	<HeaderContainer>
-		<LogoContainer to="/">
-			<Logo />
-		</LogoContainer>
-		<Options>
-			<Option to="/shop">SHOP</Option>
-			<Option to="/shop">CONTACT</Option>
-			{currentUser ? (
-				<Option onClick={() => auth.signOut()}>SIGN OUT</Option>
-			) : (
-				<Option to="/signin">SIGN IN</Option>
-			)}
-			<CartIcon />
-		</Options>
-		{!hidden && <CartDropdown />}
-	</HeaderContainer>
-)
+const Header = () => {
+	const currentUser = useSelector(selectCurrentUser)
+	const hidden = useSelector(selectCartHidden)
 
-const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser,
-	hidden: selectCartHidden,
-})
+	return (
+		<HeaderContainer>
+			<LogoContainer to="/">
+				<Logo />
+			</LogoContainer>
+			<Options>
+				<Option>
+					<Link to="/shop">SHOP</Link>
+				</Option>
+				<Option>
+					<Link to="/shop">CONTACT</Link>
+				</Option>
+				{currentUser ? (
+					<Option onClick={() => auth.signOut()}>SIGN OUT</Option>
+				) : (
+					<Option>
+						<Link to="/signin">SIGN IN</Link>
+					</Option>
+				)}
+				<CartIcon />
+			</Options>
+			{!hidden && <CartDropdown />}
+		</HeaderContainer>
+	)
+}
 
-export default connect(mapStateToProps)(Header)
+export default Header

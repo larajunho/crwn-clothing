@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Redirect, Route, Switch } from "react-router-dom"
-import { createStructuredSelector } from "reselect"
 import "./App.scss"
 import Header from "./components/header/header.component"
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
@@ -9,10 +8,17 @@ import CheckoutPage from "./pages/checkout/checkout.component"
 import HomePage from "./pages/homepage/homepage.component"
 import ShopPage from "./pages/shop/shop.component"
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
-import { setCurrentUser } from "./redux/user/user.actions"
+import { setCurrentUser as _setCurrentUser } from "./redux/user/user.actions"
 import { selectCurrentUser } from "./redux/user/user.selectors"
 
-const App = ({ currentUser, setCurrentUser }) => {
+const App = () => {
+	const currentUser = useSelector(selectCurrentUser)
+	const dispatch = useDispatch()
+
+	const setCurrentUser = user => {
+		dispatch(_setCurrentUser(user))
+	}
+
 	useEffect(() => {
 		const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 			if (userAuth) {
@@ -51,12 +57,4 @@ const App = ({ currentUser, setCurrentUser }) => {
 	)
 }
 
-const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser,
-})
-
-const mapDispatchToProps = dispatch => ({
-	setCurrentUser: user => dispatch(setCurrentUser(user)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
